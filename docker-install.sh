@@ -9,8 +9,8 @@ done
 # Install Docker and Docker Compose
 sudo apt-get update
 sudo apt-get install docker.io docker-compose -y
-curl -sSL https://get.docker.com | sh || error "Failed to install Docker."
-sudo usermod -aG docker $USER || error "Failed to add user to the Docker usergroup."
+
+sudo usermod -aG docker $USER
 mkdir ~/DockerFiles/Data
 
 # Loop through the selected containers
