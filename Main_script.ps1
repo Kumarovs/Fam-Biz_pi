@@ -14,4 +14,4 @@ else {
 }
 
 # Connect to the Debian server and download the Debian script
-ssh -t $username@$server 'wget https://raw.githubusercontent.com/RJSkudra/Fam-Biz_pi/main/docker-install.sh && sudo chmod +x docker-install.sh && ./docker-install.sh && bash -i'
+ssh -t $username@$server 'sudo rm docker-install.sh && wget https://raw.githubusercontent.com/RJSkudra/Fam-Biz_pi/main/docker-install.sh && sudo chmod +x docker-install.sh && ./docker-install.sh && bash -i'
