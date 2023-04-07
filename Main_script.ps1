@@ -1,6 +1,6 @@
 # Prompt the user to select from a list of pre-determined Docker containers
-$options = @("pihole - DNS server", "nginx - Website host", "mariadb - Database")
-$selectedOption = Read-Host "Select the Docker container you want to install ($($options -join ', '))"
+#$options = @("pihole - DNS server", "nginx - Website host", "mariadb - Database")
+#$selectedOption = Read-Host "Select the Docker container you want to install ($($options -join ', '))"
 
 # Prompt the user for the username and IP address of the Debian server
 $isDefault = Read-Host "Is the install changed? (y/n)"
@@ -14,4 +14,4 @@ else {
 }
 
 # Connect to the Debian server and download the Debian script
-ssh $username@$server "wget https://raw.githubusercontent.com/RJSkudra/Fam-Biz_pi/main/docker-install.sh && chmod +x docker-install.sh && ./docker-install.sh;bash -l"
+ssh -t $username@$server 'wget https://raw.githubusercontent.com/RJSkudra/Fam-Biz_pi/main/docker-install.sh && sudo chmod +x docker-install.sh && ./docker-install.sh && bash -i'
