@@ -1,7 +1,3 @@
-# Prompt the user to select from a list of pre-determined Docker containers
-#$options = @("pihole - DNS server", "nginx - Website host", "mariadb - Database")
-#$selectedOption = Read-Host "Select the Docker container you want to install ($($options -join ', '))"
-
 # Prompt the user for the username and IP address of the Debian server
 $isDefault = Read-Host "Is the install changed? (y/n)"
 if ($isDefault -eq "y") {
