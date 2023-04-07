@@ -13,10 +13,7 @@ echo "Use the Zerotier One Network ID https://my.zerotier.com/ to connect to the
 read -p "Enter the ZT ID digits:  " zerotierNetworkID
 
 sudo zerotier-cli join $zerotierNetworkID
-
-zerotier-cli listnetworks
-echo ""
-pause
+sleep 2
 
 
 FILE=docker-container-setup.sh
