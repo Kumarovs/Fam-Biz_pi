@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Please choose a container to install:"
-echo "1. Pi-hole"
+echo "1. Adguard"
 echo "2. Nginx"
 echo "3. MariaDB"
 echo "4. Redis"
@@ -29,7 +29,7 @@ read -p "Enter the number of the container you want to install: " container_choi
 TZ="Europe/Riga"
 
 if [ $container_choice -eq 1 ]; then
-read -p "Enter the password for the Pi-hole web interface: " WEBPASSWORD
+:
 elif [ $container_choice -eq 2 ]; then
 :
 elif [ $container_choice -eq 3 ]; then
@@ -97,6 +97,34 @@ services:
       - "./DockerFiles/data/pihole:/etc/pihole"
       - "./DockerFiles/data/dnsmasq.d:/etc/dnsmasq.d"
 EOF
+version: '3'
+
+services:
+  adguard:
+    image: adguard/adguardhome:latest
+    container_name: Adguardhome
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "68:68/tcp"
+      - "68:68/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+		  - "443:443/udp",
+		  - "3001:3000/tcp",
+		  - "853:853/tcp",
+		  - "784:784/udp",
+		  - "853:853/udp",
+		  - "8853:8853/udp",
+		  - "5443:5443/tcp",
+		  - "5443:5443/udp"
+    volumes:
+      - ./portainer/Files/AppData/Config/AdguardHome/config:/opt/adguardhome/conf
+      - ./portainer/Files/AppData/Config/AdguardHome/work:/opt/adguardhome/work
+    environment:
+      TZ: "Europe/London"
 elif [ $container_choice -eq 2 ]; then
   cat > docker-compose.yml << EOF
 version: '3'
