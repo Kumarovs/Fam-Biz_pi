@@ -9,8 +9,8 @@ if ($isDefault -eq "y") {
     $server = Read-Host "Enter the IP address of the Debian server"
 }
 else {
-        $username = pi
-        $server = fampi
+        $username = "pi"
+        $server = "fampi"
 }
 
 # Connect to the Debian server and download the Debian script
