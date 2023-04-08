@@ -272,21 +272,21 @@ services:
   speedtest:
     image: henrywhitaker3/speedtest-tracker:latest
     container_name: speedtest-tracker
-      ports:
-          - 8765:80
-      volumes:
-          - /portainer/Files/AppData/Config/speedtest-tracker/config:/config
-      environment:
-          - TZ="$TZ"
-          - PGID=
-          - PUID=
-          - OOKLA_EULA_GDPR=true
-      logging:
-          driver: "json-file"
-          options:
-              max-file: "10"
-              max-size: "200k"
-      restart: unless-stopped
+    ports:
+        - 8765:80
+    volumes:
+        - /portainer/Files/AppData/Config/speedtest-tracker/config:/config
+    environment:
+        - TZ="$TZ"
+        - PGID=
+        - PUID=
+        - OOKLA_EULA_GDPR=true
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "10"
+            max-size: "200k"
+    restart: unless-stopped
 EOF
 elif [ $container_choice -eq 14 ]; then
   cat > docker-compose.yml << EOF
