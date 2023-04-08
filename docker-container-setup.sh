@@ -270,8 +270,8 @@ elif [ $container_choice -eq 13 ]; then
 version: '3'
 services:
   speedtest:
-    image: henrywhitaker3/speedtest-tracker:latest
-    container_name: speedtest-tracker
+    image: henrywhitaker3/speedtest-tracker:latest-arm
+    container_name: speedtest
     ports:
         - 8765:80
     volumes:
