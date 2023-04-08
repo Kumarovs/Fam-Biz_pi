@@ -275,7 +275,7 @@ services:
         ports:
             - 8765:80
         volumes:
-            - /path/to/data:/config
+            - /portainer/Files/AppData/Config/speedtest-tracker/config:/config
         environment:
             - TZ="$TZ"
             - PGID=
