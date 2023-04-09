@@ -6,6 +6,8 @@ sudo apt-get install docker.io docker-compose -y
 sudo usermod -aG docker $USER
 sudo mkdir ./DockerFiles/data/
 
+read -p "Do you need to setup VPN? (y/n)" vpn_install_choice
+if [ $vpn_install_choice = "y" ]; then
 curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
 if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
 
@@ -14,7 +16,6 @@ read -p "Enter the ZT ID digits:  " zerotierNetworkID
 
 sudo zerotier-cli join $zerotierNetworkID
 sleep 2
-
 
 FILE=docker-container-setup.sh
 if test -f "$FILE"; then
