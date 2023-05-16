@@ -96,8 +96,8 @@ services:
 		  - "5443:5443/tcp",
 		  - "5443:5443/udp"
     volumes:
-      - ./portainer/Files/AppData/Config/AdguardHome/config:/opt/adguardhome/conf
-      - ./portainer/Files/AppData/Config/AdguardHome/work:/opt/adguardhome/work
+      - ./DockerFiles/ContainerData/AdguardHome/config:/opt/adguardhome/conf
+      - ./DockerFiles/ContainerData/AdguardHome/work:/opt/adguardhome/work
     environment:
       TZ: "$TZ"
 EOF
@@ -113,8 +113,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - "./DockerFiles/data/nginx/conf.d:/etc/nginx/conf.d"
-      - "./DockerFiles/data/nginx/html:/usr/share/nginx/html"
+      - "./DockerFiles/ContainerData/nginx/conf.d:/etc/nginx/conf.d"
+      - "./DockerFiles/ContainerData/nginx/html:/usr/share/nginx/html"
 EOF
 elif [ $container_choice -eq 3 ]; then
   cat > docker-compose.yml << EOF
@@ -127,7 +127,7 @@ services:
       TZ: "$TZ"
       MYSQL_ROOT_PASSWORD: "$MYSQL_ROOT_PASSWORD"
     volumes:
-      - "./DockerFiles/data/mariadb:/var/lib/mysql"
+      - "./DockerFiles/ContainerData/mariadb:/var/lib/mysql"
 EOF
 elif [ $container_choice -eq 4 ]; then
   cat > docker-compose.yml << EOF
@@ -139,7 +139,7 @@ services:
     environment:
       TZ: "$TZ"
     volumes:
-      - "./DockerFiles/data/redis:/data"
+      - "./DockerFiles/ContainerData/redis:/data"
 EOF
 elif [ $container_choice -eq 5 ]; then
   cat > docker-compose.yml << EOF
@@ -151,7 +151,7 @@ services:
     environment:
       TZ: "$TZ"
     volumes:
-      - "./DockerFiles/data/homeassistant:/config"
+      - "./DockerFiles/ContainerData/homeassistant:/config"
 EOF
 elif [ $container_choice -eq 6 ]; then
   cat > docker-compose.yml << EOF
@@ -176,7 +176,7 @@ services:
     environment:
       TZ: "$TZ"
     volumes:
-      - "./DockerFiles/data/vaultwarden:/data"
+      - "./DockerFiles/ContainerData/vaultwarden:/data"
 EOF
 elif [ $container_choice -eq 8 ]; then
   cat > docker-compose.yml << EOF
@@ -200,7 +200,7 @@ services:
     environment:
       TZ: "$TZ"
     volumes:
-      - "./DockerFiles/data/uptimerobot:/config"
+      - "./DockerFiles/ContainerData/uptimerobot:/config"
 EOF
 elif [ $container_choice -eq 10 ]; then
   cat > docker-compose.yml << EOF
@@ -212,7 +212,8 @@ services:
     environment:
       TZ: "$TZ"
     volumes:
-      - "./DockerFiles/data/qbittorrent:/config"
+      - "./DockerFiles/ContainerData/qbittorrent:/config"
+      - "./DockerFiles/Downloads/:/downloads"
 EOF
 elif [ $container_choice -eq 11 ]; then
   cat > docker-compose.yml << EOF
