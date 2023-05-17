@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 
+echo ""
 echo "1. Noņemt konteineri"
 echo "2. Instalēt konteineri"
 echo "3. Iziet"
