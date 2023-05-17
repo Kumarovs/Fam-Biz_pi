@@ -17,7 +17,6 @@ docker rm "$container_name"
 clear
 ./docker-container_setup.sh
 elif [ $choice_task -eq 2 ]; then
-echo "viss labi"
 
 echo "Izvēlamies pieejamos konteinerus:"
 echo "1. Adguard (DNS ar iebūvētu reklāmu bloķētāju)"
