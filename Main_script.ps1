@@ -1,13 +1,13 @@
-$isInstall = Read-Host "Is docker installed? (y/n)"
+$isInstall = Read-Host "Vai ir uzinstalēts Docker? (y/n)"
 # Prompt the user for the username and IP address of the Debian server
-$isDefault = Read-Host "Is the username pi un server hostname fampi? (y/n)"
+$isDefault = Read-Host "Vai servera lietotājvārds ir (pi) un servera vārds ir (raspberrypi)? (y/n)"
 if ($isDefault -eq "n") {
     $username = Read-Host "Enter the username for the Debian server"
     $server = Read-Host "Enter the IP address of the Debian server"
 }
 else {
         $username = "pi"
-        $server = "fampi"
+        $server = "raspberrypi"
 }
 
 # Connect to the Debian server and download the Debian script
