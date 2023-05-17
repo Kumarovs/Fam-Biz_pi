@@ -4,8 +4,9 @@ sudo apt-get update
 sudo apt-get install docker.io docker-compose -y
 
 sudo usermod -aG docker $USER
-sudo mkdir ./DockerFiles/ContainerData/
-sudo mkdir ./DockerFile/Downloads
+sudo mkdir ./DockerFiles/data
+sudo mkdir ./DockerFile/downloads
+sudo mkdir ./DockerFile/media
 
 FILE=docker-container-setup.sh
 if test -f "$FILE"; then
