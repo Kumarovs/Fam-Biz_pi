@@ -332,6 +332,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 11 ]; then #duplicati
+  sudo mkdir -p ./backups
   cat > docker-compose.yml << EOF
 version: "3"
 services:
@@ -484,7 +485,7 @@ services:
 EOF
 elif [ $container_choice -eq 17 ]; then #paperless-ngx
   cat > docker-compose.yml << EOF
-version: "2.1"
+version: "3"
 services:
   paperless-ngx:
     image: lscr.io/linuxserver/paperless-ngx:latest
