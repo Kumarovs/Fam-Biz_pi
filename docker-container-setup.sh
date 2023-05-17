@@ -500,7 +500,7 @@ services:
       - 8000:8000
     restart: unless-stopped
 EOF
-elif [ $container_choice -eq 18 ]; then #traefik wget -qO- https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/tools/traefik.sh | bash
+elif [ $container_choice -eq 18 ]; then #traefik 
 sudo mkdir -p /DockerFiles/data/traefik
 sudo touch /DockerFiles/data/traefik/traefik.yml
 sudo touch /DockerFiles/data/traefik/config.yml
