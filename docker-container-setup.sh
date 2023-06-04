@@ -1,64 +1,75 @@
 #!/bin/bash
+clear
+
+NC='\033[0m' 
+YELLOW='\033[1;33m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+
 echo ""
-echo "1. Noņemt konteineri"
-echo "2. Instalēt konteineri"
-echo "3. Iziet"
-read -p "Ievadiet izvēles ciparu " choice_task
+echo "${YELLOW}1. Noņemt konteineri${NC}"
+echo "${YELLOW}2. Instalēt konteineri${NC}"
+echo "${YELLOW}3. Iziet${NC}"
+read -p "${GREEN}Ievadiet izvēles ciparu ${NC}" choice_task
 
 if [ $choice_task -eq 3 ]; then
-exit
+  exit
 elif [ $choice_task -eq 1 ]; then
-echo "Šobrīd ejošie konteineri:"
-docker ps --format "{{.Names}}"
-echo "====================="
-read -p "Ievadiet precīzi konteinera nosaukumu, kuru vēlaties noņemt: " container_name
+  echo "${BLUE}Šobrīd ejošie konteineri:${NC}"
+  docker ps --format "{{.Names}}"
+  echo "====================="
+  read -p "${GREEN}Ievadiet precīzi konteinera nosaukumu, kuru vēlaties noņemt: ${NC}" container_name
 
-docker stop "$container_name"
-docker rm "$container_name"
-clear
-./docker-container-setup.sh
+  docker stop "$container_name"
+  docker rm "$container_name"
+  clear
+  ./docker-container-setup.sh
 elif [ $choice_task -eq 2 ]; then
 
-echo "Izvēlamies pieejamos konteinerus:"
-echo "1. Adguard (DNS ar iebūvētu reklāmu bloķētāju)"
-echo "2. JDownloader 2 (Lejupielādē uz servera lielapjoma failus)"
-echo "3. Dozzle (Servera diagnostikas rīks)"
-echo "4. PhotoPrism (Foto/Video galerija, jābūt vismaz 4GB RAM!!!)"
-echo "5. Home Assistant (Gudrās mājas asistents)"
-echo "6. Nextcloud for Raspberry Pi (Google produktu alternatīva)"
-echo "7. VaultWarden (Paroļu krātuve)"
-echo "8. Heimdall (Rediģējama servera sākuma lapa)"
-echo "9. Uptime Kuma (Tīmekļvietņu darbspējas laika mērītājs)"
-echo "10. Homarr (Rediģējama mājaslapa ar visiem uzinstalētajiem servera servisiem)"
-echo "11. Duplicati (Datu rezervju veidotājs)"
-echo "12. Lychee for Photos (Foto/Video galerija)"
-echo "13. Speedtest-Tracker (Interneta ātruma mērītājs)"
-echo "14. File Browser (Servera lokālās krātuves rediģētājs analogs Google Drive)"
-echo "15. PiGallery2 (Foto/Video galerija mazāk jaudīgiem serveriem)"
-echo "16. Mealie (Recepšu pārvaldnieks)"
-echo "17. Paperless-ngx (Papīra dokumentu digitalizētājs)"
-echo "18. Traefik (Servera rīks - ļauj nenorādīt uzinstalētā servisa portu, bet gan nosaukumu)"
-echo "19. Grocy (Mājsaimniecības/virtuves pārvaldnieks)"
+  echo "${BLUE}Izvēlamies pieejamos konteinerus:${NC}"
+  echo "1. Adguard (DNS ar iebūvētu reklāmu bloķētāju)"
+  echo "2. JDownloader 2 (Lejupielādē uz servera lielapjoma failus)"
+  echo "3. Dozzle (Servera diagnostikas rīks)"
+  echo "4. PhotoPrism (Foto/Video galerija, jābūt vismaz 4GB RAM!!!)"
+  echo "5. Home Assistant (Gudrās mājas asistents)"
+  echo "6. Nextcloud for Raspberry Pi (Google produktu alternatīva)"
+  echo "7. VaultWarden (Paroļu krātuve)"
+  echo "8. Heimdall (Rediģējama servera sākuma lapa)"
+  echo "9. Uptime Kuma (Tīmekļvietņu darbspējas laika mērītājs)"
+  echo "10. Homarr (Rediģējama mājaslapa ar visiem uzinstalētajiem servera servisiem)"
+  echo "11. Duplicati (Datu rezervju veidotājs)"
+  echo "12. Lychee for Photos (Foto/Video galerija)"
+  echo "13. Speedtest-Tracker (Interneta ātruma mērītājs)"
+  echo "14. File Browser (Servera lokālās krātuves rediģētājs analogs Google Drive)"
+  echo "15. PiGallery2 (Foto/Video galerija mazāk jaudīgiem serveriem)"
+  echo "16. Mealie (Recepšu pārvaldnieks)"
+  echo "17. Paperless-ngx (Papīra dokumentu digitalizētājs)"
+  echo "18. Traefik (Servera rīks - ļauj nenorādīt uzinstalētā servisa portu, bet gan nosaukumu)"
+  echo "19. Grocy (Mājsaimniecības/virtuves pārvaldnieks)"
+  echo "=================================================="
+  echo "${BLUE}Šobrīd ejošie konteineri:${NC}"
+  docker ps --format "{{.Names}}"
+  echo " "
+  echo "-------------------------------------------------"
+  read -p "${GREEN}Ievadiet konteinera ciparu lai instalētu/atjauninātu konkrēto konteineri: ${NC}" container_choice
+  clear
+  echo "(Pieejamās laika zonas https://docs.diladele.com/docker/timezones.html)"
+  echo " "
+  read -p "${GREEN}Ievadiet laika zonu ^, kurā atrodas serveris (atstājot tukšu tiks izvēlēts Europe/Riga): ${NC}" TZ_choice
+  clear
+  read -p "${GREEN}Ievadiet DOMENA_VARDS ar kuru sasniegsiet serveri (http://DOMENA_VARDS.home -> DOMENA_VARDS ierakstam tikai pašu domēna vārdu bez http:// un .home!): ${NC}" DOMAIN_NAME
 
-echo "Šobrīd ejošie konteineri:"
-docker ps --format "{{.Names}}"
+  if [ -z "$TZ_choice" ]; then
+      TZ="Europe/Riga"
+  else
+      TZ="$TZ_choice"
+  fi
 
-read -p "Ievadiet konteinera ciparu lai instalētu/atjauninātu konkrēto konteineri: " container_choice
+  echo "Izvēlētā laika zona: $TZ"
 
-echo "(Pieejamās laika zonas https://docs.diladele.com/docker/timezones.html)"
-read -p "Ievadiet laika zonu ^, kurā atrodas serveris (atstājot tukšu tiks izvēlēts Europe/Riga): " TZ_choice
-read -p "Ievadiet DOMENA_VARDS ar kuru sasniegsiet serveri (http://DOMENA_VARDS.home -> DOMENA_VARDS ierakstam tikai pašu domēna vārdu bez http:// un .home!): " DOMAIN_NAME
-
-if [ -z "$TZ_choice" ]; then
-    TZ="Europe/Riga"
-else
-    TZ="$TZ_choice"
-fi
-
-echo "Izvēlētā laika zona: $TZ"
 
 if [ $container_choice -eq 1 ]; then #adblock
-  echo "Pirmo reizi uzstādot AdGuard Home nepieciešams interneta pārlūkā pieslēgties: http://$HOSTNAME:3000"
+  ports = "8090"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -72,16 +83,16 @@ services:
       - "67:67/udp"
       - "68:68/tcp"
       - "68:68/udp"
-      - "8080:80/tcp"
+      - "8090:80/tcp"
       - "443:443/tcp"
-		  - "443:443/udp",
-		  - "3000:3000/tcp",
-		  - "853:853/tcp",
-		  - "784:784/udp",
-		  - "853:853/udp",
-		  - "8853:8853/udp",
-		  - "5443:5443/tcp",
-		  - "5443:5443/udp"
+      - "443:443/udp",
+      - "3000:3000/tcp",
+      - "853:853/tcp",
+      - "784:784/udp",
+      - "853:853/udp",
+      - "8853:8853/udp",
+      - "5443:5443/tcp",
+      - "5443:5443/udp"
     volumes:
       - "./DockerFiles/data/AdguardHome/config:/opt/adguardhome/conf"
       - "./DockerFiles/data/AdguardHome/work:/opt/adguardhome/work"
@@ -89,6 +100,7 @@ services:
       TZ: "$TZ"
 EOF
 elif [ $container_choice -eq 2 ]; then #jdownloader2
+  ports = "5800"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -101,6 +113,7 @@ services:
       - "./DockerFiles/downloads:/output"
 EOF
 elif [ $container_choice -eq 3 ]; then #dozzle
+  ports = "8001"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -115,6 +128,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
 EOF
 elif [ $container_choice -eq 4 ]; then #photoprism
+ports = "2342"
 sudo mkdir -p /DockerFiles/data/PhotoPrism/storage
 sudo mkdir -p /DockerFiles/data/PhotoPrism/database
 sudo mkdir -p /DockerFiles/media
@@ -223,6 +237,7 @@ services:
       MYSQL_PASSWORD: "$MYSQL_PASSWORD"
 EOF
 elif [ $container_choice -eq 5 ]; then #home assistant
+  ports = "8999"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -238,6 +253,7 @@ services:
     privileged: true
 EOF
 elif [ $container_choice -eq 6 ]; then #nextcloud
+ports = "8083"
 read -s -p "Ievadiet MySQL datubāzes administratora paroli: " MYSQL_ROOT_PASSWORD
 read -s -p "Ievadiet MySQL datubāzes paroli: " DATABASE_PASSWORD
   cat > docker-compose.yml << EOF
@@ -274,6 +290,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 7 ]; then #vaultwarden
+  ports = "8084"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -289,6 +306,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 8 ]; then #heimdall
+  ports = "8085"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -304,6 +322,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 9 ]; then #uptime kuma
+  ports = "3001"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -317,6 +336,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 10 ]; then #homarr
+  ports = "7575"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -332,6 +352,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 11 ]; then #duplicati
+  ports = "8200"
   sudo mkdir -p ./backups
   cat > docker-compose.yml << EOF
 version: "3"
@@ -352,6 +373,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 12 ]; then #lychee
+  ports = "8086"
 read -s -p "Ievadiet MySQL datubāzes administratora paroli: " MYSQL_ROOT_PASSWORD
 read -s -p "Ievadiet MySQL datubāzes paroli: " MYSQL_PASSWORD
   cat > docker-compose.yml << EOF
@@ -393,6 +415,7 @@ services:
       - 8086:80
 EOF
 elif [ $container_choice -eq 13 ]; then #speedtest
+  ports = "8765"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -416,6 +439,7 @@ services:
       restart: unless-stopped
 EOF
 elif [ $container_choice -eq 14 ]; then #filebrowser
+  ports = "8087"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -432,6 +456,7 @@ services:
       - "8087:80"
 EOF
 elif [ $container_choice -eq 15 ]; then #pigallery 2
+  ports = "8088"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -453,6 +478,7 @@ volumes:
   db-data:
 EOF
 elif [ $container_choice -eq 16 ]; then #mealie
+  ports = "9925"
 echo "Pēc noklusējuma lietotājvārds: changeme@email.com un parole: MyPassword"
   cat > docker-compose.yml << EOF
 version: "3"
@@ -484,6 +510,7 @@ services:
       - ./DockerFiles/data/mealie/data/:/app/data
 EOF
 elif [ $container_choice -eq 17 ]; then #paperless-ngx
+  ports = "8000"
   cat > docker-compose.yml << EOF
 version: "3"
 services:
@@ -502,6 +529,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 18 ]; then #traefik 
+  ports = "8080"
 sudo mkdir -p /DockerFiles/data/traefik
 sudo touch /DockerFiles/data/traefik/traefik.yml
 sudo touch /DockerFiles/data/traefik/config.yml
@@ -539,6 +567,7 @@ services:
       - traefik_default
 EOF
 elif [ $container_choice -eq 19 ]; then #grocy
+  ports = "9283"
   cat > docker-compose.yml << EOF
 version: "3"
 services:
@@ -569,9 +598,13 @@ else
   clear
   ./docker-container-setup.sh
 fi
+if [ $container_choice -eq 1 ]; then #adblock
+  echo "Pirmo reizi uzstādot AdGuard Home nepieciešams interneta pārlūkā pieslēgties: http://$HOSTNAME:3000"
+fi
+echo "Konteinera piekļuves link: http://$HOSTNAME:$ports"
 echo "Ja tiek prasīta parole un lietotājvārds tad parasti tie ir admin/admin. Ieteicams pameklēt programmu dokumentācijā sīkāk"
 docker-compose up -d
-read -p "Install another container? (y/n)" container_install_choice
+read -p "Instalēt papildus konteineri? (y/n)" container_install_choice
 if [ $container_install_choice = "y" ]; then
 clear
 ./docker-container-setup.sh
