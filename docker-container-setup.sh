@@ -14,7 +14,7 @@ echo "====================="
 read -p "Ievadiet precīzi konteinera nosaukumu, kuru vēlaties noņemt: " container_name
 
 docker rm "$container_name"
-clear
+#clear
 ./docker-container_setup.sh
 elif [ $choice_task -eq 2 ]; then
 
