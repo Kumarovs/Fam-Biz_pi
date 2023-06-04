@@ -13,9 +13,10 @@ docker ps --format "{{.Names}}"
 echo "====================="
 read -p "Ievadiet precīzi konteinera nosaukumu, kuru vēlaties noņemt: " container_name
 
+docker stop "$container_name"
 docker rm "$container_name"
-#clear
-./docker-container_setup.sh
+clear
+./docker-container-setup.sh
 elif [ $choice_task -eq 2 ]; then
 
 echo "Izvēlamies pieejamos konteinerus:"
