@@ -56,8 +56,8 @@ elif [ $choice_task -eq 2 ]; then
   echo "(Pieejamās laika zonas https://docs.diladele.com/docker/timezones.html)"
   echo " "
   read -p "Ievadiet laika zonu ^, kurā atrodas serveris (atstājot tukšu tiks izvēlēts Europe/Riga): " TZ_choice
-  clear
-  read -p "Ievadiet DOMENA_VARDS ar kuru sasniegsiet serveri (http://DOMENA_VARDS.home -> DOMENA_VARDS ierakstam tikai pašu domēna vārdu bez http:// un .home!): " DOMAIN_NAME
+  
+  DOMAIN_NAME=$HOSTNAME
   clear
   if [ -z "$TZ_choice" ]; then
       TZ="Europe/Riga"
@@ -616,12 +616,15 @@ else
   clear
   ./docker-container-setup.sh
 fi
+docker-compose up -d
+echo "================================="
 if [ $container_choice -eq 1 ]; then #adblock
   echo -e "${YELLOW}Pirmo reizi uzstādot AdGuard Home nepieciešams interneta pārlūkā pieslēgties: http://$HOSTNAME:3000 ${NC}"
 fi
 echo -e "${BLUE}Konteinera piekļuves link: http://$HOSTNAME:$ports VAI ja ir traefik serviss: http://$servName.$HOSTNAME.home ${NC}"
 echo "Ja tiek prasīta parole un lietotājvārds tad parasti tie ir admin/admin. Ieteicams pameklēt programmu dokumentācijā sīkāk"
-docker-compose up -d
+echo "-------------------------------------"
+echo " "
 read -p "Instalēt papildus konteineri? (y/n)" container_install_choice
 if [ $container_install_choice = "y" ]; then
 clear
