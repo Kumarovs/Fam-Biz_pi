@@ -11,7 +11,7 @@ echo -e "${YELLOW}1. Noņemt konteineri${NC}"
 echo -e "${YELLOW}2. Instalēt konteineri${NC}"
 echo -e "${YELLOW}3. Iziet${NC}"
 read -p "Ievadiet izvēles ciparu: " choice_task
-
+clear
 if [ $choice_task -eq 3 ]; then
   exit
 elif [ $choice_task -eq 1 ]; then
@@ -58,7 +58,7 @@ elif [ $choice_task -eq 2 ]; then
   read -p "Ievadiet laika zonu ^, kurā atrodas serveris (atstājot tukšu tiks izvēlēts Europe/Riga): " TZ_choice
   clear
   read -p "Ievadiet DOMENA_VARDS ar kuru sasniegsiet serveri (http://DOMENA_VARDS.home -> DOMENA_VARDS ierakstam tikai pašu domēna vārdu bez http:// un .home!): " DOMAIN_NAME
-
+  clear
   if [ -z "$TZ_choice" ]; then
       TZ="Europe/Riga"
   else
