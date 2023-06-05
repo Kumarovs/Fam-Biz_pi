@@ -69,6 +69,7 @@ elif [ $choice_task -eq 2 ]; then
 
 
 if [ $container_choice -eq 1 ]; then #adblock
+  servName="adguard"
   ports = "8090"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -100,6 +101,7 @@ services:
       TZ: "$TZ"
 EOF
 elif [ $container_choice -eq 2 ]; then #jdownloader2
+  servName="downloader"
   ports="5800"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -113,6 +115,7 @@ services:
       - "./DockerFiles/downloads:/output"
 EOF
 elif [ $container_choice -eq 3 ]; then #dozzle
+  servName="dozzle"
   ports="8001"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -128,6 +131,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
 EOF
 elif [ $container_choice -eq 4 ]; then #photoprism
+servName="photoprism"
 ports="2342"
 sudo mkdir -p /DockerFiles/data/PhotoPrism/storage
 sudo mkdir -p /DockerFiles/data/PhotoPrism/database
@@ -237,6 +241,7 @@ services:
       MYSQL_PASSWORD: "$MYSQL_PASSWORD"
 EOF
 elif [ $container_choice -eq 5 ]; then #home assistant
+servName="ha"
   ports="8999"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -253,6 +258,7 @@ services:
     privileged: true
 EOF
 elif [ $container_choice -eq 6 ]; then #nextcloud
+servName="nextcloud"
 ports="8083"
 read -s -p "Ievadiet MySQL datubāzes administratora paroli: " MYSQL_ROOT_PASSWORD
 read -s -p "Ievadiet MySQL datubāzes paroli: " DATABASE_PASSWORD
@@ -290,6 +296,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 7 ]; then #vaultwarden
+  servName="vaultwarden"
   ports="8084"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -306,6 +313,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 8 ]; then #heimdall
+  servName="heimdall"
   ports="8085"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -322,6 +330,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 9 ]; then #uptime kuma
+  servName="uptime"
   ports="3001"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -336,6 +345,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 10 ]; then #homarr
+  servName="homarr"
   ports="7575"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -352,6 +362,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 11 ]; then #duplicati
+  servName="duplicati"
   ports="8200"
   sudo mkdir -p ./backups
   cat > docker-compose.yml << EOF
@@ -373,6 +384,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 12 ]; then #lychee
+  servName="lychee"
   ports="8086"
 read -s -p "Ievadiet MySQL datubāzes administratora paroli: " MYSQL_ROOT_PASSWORD
 read -s -p "Ievadiet MySQL datubāzes paroli: " MYSQL_PASSWORD
@@ -415,6 +427,7 @@ services:
       - 8086:80
 EOF
 elif [ $container_choice -eq 13 ]; then #speedtest
+  servName="speedtest"
   ports="8765"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -439,6 +452,7 @@ services:
       restart: unless-stopped
 EOF
 elif [ $container_choice -eq 14 ]; then #filebrowser
+  servName="filebrowser"
   ports="8087"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -456,6 +470,7 @@ services:
       - "8087:80"
 EOF
 elif [ $container_choice -eq 15 ]; then #pigallery 2
+  servName="pigallery"
   ports="8088"
   cat > docker-compose.yml << EOF
 version: '3'
@@ -478,6 +493,7 @@ volumes:
   db-data:
 EOF
 elif [ $container_choice -eq 16 ]; then #mealie
+  servName="mealie"
   ports="9925"
 echo "Pēc noklusējuma lietotājvārds: changeme@email.com un parole: MyPassword"
   cat > docker-compose.yml << EOF
@@ -510,6 +526,7 @@ services:
       - ./DockerFiles/data/mealie/data/:/app/data
 EOF
 elif [ $container_choice -eq 17 ]; then #paperless-ngx
+  servName="paperless"
   ports="8000"
   cat > docker-compose.yml << EOF
 version: "3"
@@ -568,6 +585,7 @@ services:
 EOF
 elif [ $container_choice -eq 19 ]; then #grocy
   ports="9283"
+  servName="grocy"
   cat > docker-compose.yml << EOF
 version: "3"
 services:
@@ -588,7 +606,7 @@ services:
     labels:
       - traefik.enable=true
       - "traefik.http.services.grocy_svc.loadbalancer.server.port=80"
-      - "traefik.http.routers.grocy_http.rule=Host(`grocy.$DOMAIN_NAME.home`)"
+      - "traefik.http.routers.grocy_http.rule=Host(`grocy.$HOSTNAME.home`)"
       - "traefik.http.routers.grocy_http.entrypoints=web"
       - "traefik.http.routers.grocy_http.service=grocy_svc"
 EOF
@@ -599,9 +617,9 @@ else
   ./docker-container-setup.sh
 fi
 if [ $container_choice -eq 1 ]; then #adblock
-  echo "Pirmo reizi uzstādot AdGuard Home nepieciešams interneta pārlūkā pieslēgties: http://$HOSTNAME:3000"
+  echo -e "${YELLOW}Pirmo reizi uzstādot AdGuard Home nepieciešams interneta pārlūkā pieslēgties: http://$HOSTNAME:3000 ${NC}"
 fi
-echo "Konteinera piekļuves link: http://$HOSTNAME:$ports"
+echo -e "${BLUE}Konteinera piekļuves link: http://$HOSTNAME:$ports VAI ja ir traefik serviss: http://$servName.$HOSTNAME.home ${NC}"
 echo "Ja tiek prasīta parole un lietotājvārds tad parasti tie ir admin/admin. Ieteicams pameklēt programmu dokumentācijā sīkāk"
 docker-compose up -d
 read -p "Instalēt papildus konteineri? (y/n)" container_install_choice
