@@ -7,18 +7,18 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 
 echo ""
-echo "${YELLOW}1. Noņemt konteineri${NC}"
-echo "${YELLOW}2. Instalēt konteineri${NC}"
-echo "${YELLOW}3. Iziet${NC}"
-read -p "${GREEN}Ievadiet izvēles ciparu ${NC}" choice_task
+echo -e "${YELLOW}1. Noņemt konteineri${NC}"
+echo -e "${YELLOW}2. Instalēt konteineri${NC}"
+echo -e "${YELLOW}3. Iziet${NC}"
+read -p "Ievadiet izvēles ciparu: " choice_task
 
 if [ $choice_task -eq 3 ]; then
   exit
 elif [ $choice_task -eq 1 ]; then
-  echo "${BLUE}Šobrīd ejošie konteineri:${NC}"
+  echo -e "${BLUE}Šobrīd ejošie konteineri:${NC}"
   docker ps --format "{{.Names}}"
   echo "====================="
-  read -p "${GREEN}Ievadiet precīzi konteinera nosaukumu, kuru vēlaties noņemt: ${NC}" container_name
+  read -p "Ievadiet precīzi konteinera nosaukumu, kuru vēlaties noņemt: " container_name
 
   docker stop "$container_name"
   docker rm "$container_name"
@@ -26,7 +26,7 @@ elif [ $choice_task -eq 1 ]; then
   ./docker-container-setup.sh
 elif [ $choice_task -eq 2 ]; then
 
-  echo "${BLUE}Izvēlamies pieejamos konteinerus:${NC}"
+  echo -e "${BLUE}Izvēlamies pieejamos konteinerus:${NC}"
   echo "1. Adguard (DNS ar iebūvētu reklāmu bloķētāju)"
   echo "2. JDownloader 2 (Lejupielādē uz servera lielapjoma failus)"
   echo "3. Dozzle (Servera diagnostikas rīks)"
@@ -47,17 +47,17 @@ elif [ $choice_task -eq 2 ]; then
   echo "18. Traefik (Servera rīks - ļauj nenorādīt uzinstalētā servisa portu, bet gan nosaukumu)"
   echo "19. Grocy (Mājsaimniecības/virtuves pārvaldnieks)"
   echo "=================================================="
-  echo "${BLUE}Šobrīd ejošie konteineri:${NC}"
+  echo -e "${BLUE}Šobrīd ejošie konteineri:${NC}"
   docker ps --format "{{.Names}}"
   echo " "
   echo "-------------------------------------------------"
-  read -p "${GREEN}Ievadiet konteinera ciparu lai instalētu/atjauninātu konkrēto konteineri: ${NC}" container_choice
+  read -p "Ievadiet konteinera ciparu lai instalētu/atjauninātu konkrēto konteineri: " container_choice
   clear
   echo "(Pieejamās laika zonas https://docs.diladele.com/docker/timezones.html)"
   echo " "
-  read -p "${GREEN}Ievadiet laika zonu ^, kurā atrodas serveris (atstājot tukšu tiks izvēlēts Europe/Riga): ${NC}" TZ_choice
+  read -p "Ievadiet laika zonu ^, kurā atrodas serveris (atstājot tukšu tiks izvēlēts Europe/Riga): " TZ_choice
   clear
-  read -p "${GREEN}Ievadiet DOMENA_VARDS ar kuru sasniegsiet serveri (http://DOMENA_VARDS.home -> DOMENA_VARDS ierakstam tikai pašu domēna vārdu bez http:// un .home!): ${NC}" DOMAIN_NAME
+  read -p "Ievadiet DOMENA_VARDS ar kuru sasniegsiet serveri (http://DOMENA_VARDS.home -> DOMENA_VARDS ierakstam tikai pašu domēna vārdu bez http:// un .home!): " DOMAIN_NAME
 
   if [ -z "$TZ_choice" ]; then
       TZ="Europe/Riga"
