@@ -100,7 +100,7 @@ services:
       TZ: "$TZ"
 EOF
 elif [ $container_choice -eq 2 ]; then #jdownloader2
-  ports = "5800"
+  ports="5800"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -113,7 +113,7 @@ services:
       - "./DockerFiles/downloads:/output"
 EOF
 elif [ $container_choice -eq 3 ]; then #dozzle
-  ports = "8001"
+  ports="8001"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -128,7 +128,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
 EOF
 elif [ $container_choice -eq 4 ]; then #photoprism
-ports = "2342"
+ports="2342"
 sudo mkdir -p /DockerFiles/data/PhotoPrism/storage
 sudo mkdir -p /DockerFiles/data/PhotoPrism/database
 sudo mkdir -p /DockerFiles/media
@@ -237,7 +237,7 @@ services:
       MYSQL_PASSWORD: "$MYSQL_PASSWORD"
 EOF
 elif [ $container_choice -eq 5 ]; then #home assistant
-  ports = "8999"
+  ports="8999"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -253,7 +253,7 @@ services:
     privileged: true
 EOF
 elif [ $container_choice -eq 6 ]; then #nextcloud
-ports = "8083"
+ports="8083"
 read -s -p "Ievadiet MySQL datubāzes administratora paroli: " MYSQL_ROOT_PASSWORD
 read -s -p "Ievadiet MySQL datubāzes paroli: " DATABASE_PASSWORD
   cat > docker-compose.yml << EOF
@@ -290,7 +290,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 7 ]; then #vaultwarden
-  ports = "8084"
+  ports="8084"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -306,7 +306,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 8 ]; then #heimdall
-  ports = "8085"
+  ports="8085"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -322,7 +322,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 9 ]; then #uptime kuma
-  ports = "3001"
+  ports="3001"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -336,7 +336,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 10 ]; then #homarr
-  ports = "7575"
+  ports="7575"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -352,7 +352,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 11 ]; then #duplicati
-  ports = "8200"
+  ports="8200"
   sudo mkdir -p ./backups
   cat > docker-compose.yml << EOF
 version: "3"
@@ -373,7 +373,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 12 ]; then #lychee
-  ports = "8086"
+  ports="8086"
 read -s -p "Ievadiet MySQL datubāzes administratora paroli: " MYSQL_ROOT_PASSWORD
 read -s -p "Ievadiet MySQL datubāzes paroli: " MYSQL_PASSWORD
   cat > docker-compose.yml << EOF
@@ -415,7 +415,7 @@ services:
       - 8086:80
 EOF
 elif [ $container_choice -eq 13 ]; then #speedtest
-  ports = "8765"
+  ports="8765"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -439,7 +439,7 @@ services:
       restart: unless-stopped
 EOF
 elif [ $container_choice -eq 14 ]; then #filebrowser
-  ports = "8087"
+  ports="8087"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -456,7 +456,7 @@ services:
       - "8087:80"
 EOF
 elif [ $container_choice -eq 15 ]; then #pigallery 2
-  ports = "8088"
+  ports="8088"
   cat > docker-compose.yml << EOF
 version: '3'
 services:
@@ -478,7 +478,7 @@ volumes:
   db-data:
 EOF
 elif [ $container_choice -eq 16 ]; then #mealie
-  ports = "9925"
+  ports="9925"
 echo "Pēc noklusējuma lietotājvārds: changeme@email.com un parole: MyPassword"
   cat > docker-compose.yml << EOF
 version: "3"
@@ -510,7 +510,7 @@ services:
       - ./DockerFiles/data/mealie/data/:/app/data
 EOF
 elif [ $container_choice -eq 17 ]; then #paperless-ngx
-  ports = "8000"
+  ports="8000"
   cat > docker-compose.yml << EOF
 version: "3"
 services:
@@ -529,7 +529,7 @@ services:
     restart: unless-stopped
 EOF
 elif [ $container_choice -eq 18 ]; then #traefik 
-  ports = "8080"
+  ports="8080"
 sudo mkdir -p /DockerFiles/data/traefik
 sudo touch /DockerFiles/data/traefik/traefik.yml
 sudo touch /DockerFiles/data/traefik/config.yml
@@ -567,7 +567,7 @@ services:
       - traefik_default
 EOF
 elif [ $container_choice -eq 19 ]; then #grocy
-  ports = "9283"
+  ports="9283"
   cat > docker-compose.yml << EOF
 version: "3"
 services:
